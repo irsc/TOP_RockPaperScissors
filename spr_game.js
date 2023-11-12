@@ -6,44 +6,48 @@ function getComputerChoice(){
 function playRound(playerSelection, computerSelection) {
     let player = playerSelection.toUpperCase();
     let computer = computerSelection.toUpperCase();
+    const MESSAGE_DRAW = "Yay...draw!";
+    const MESSAGE_PAPER_ROCK = "Paper wraps and beats rock!";
+    const MESSAGE_ROCK_SCISSORS = "Rock smashes scissors!";
+    const MESSAGE_SCISSORS_PAPER = "Scissors cut paper!";
     
     switch(player){
         case "ROCK":
             switch(computer){
                 case "ROCK":
-                    console.log("Yay...draw!");
+                    console.log(MESSAGE_DRAW);
                     return "draw";
                 case "PAPER":
-                    console.log("Paper wraps and beats rock!");
+                    console.log(MESSAGE_PAPER_ROCK);
                     return "computer";
                 case "SCISSORS":
-                    console.log("Rock smashes scissors!");
+                    console.log(MESSAGE_ROCK_SCISSORS);
                     return "player";
             }
             break
         case "PAPER":
             switch(computer){
                 case "ROCK":
-                    console.log("Paper wraps and beats rock!");
+                    console.log(MESSAGE_PAPER_ROCK);
                     return "player";
                 case "PAPER":
-                    console.log("Yay...draw!");
+                    console.log(MESSAGE_DRAW);
                     return "draw";
                 case "SCISSORS":
-                    console.log("Scissors cut paper!");
+                    console.log(MESSAGE_SCISSORS_PAPER);
                     return "computer";
             }
             break
         case "SCISSORS":
             switch(computer){
                 case "ROCK":
-                    console.log("Rock smashes scissors!");
+                    console.log(MESSAGE_ROCK_SCISSORS);
                     return "computer"
                 case "PAPER":
-                    console.log("Scissors cut paper!");
+                    console.log(MESSAGE_SCISSORS_PAPER);
                     return "player";
                 case "SCISSORS":
-                    console.log("Yay...draw!");
+                    console.log(MESSAGE_DRAW);
                     return "draw";
             }
             break
