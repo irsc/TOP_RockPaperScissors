@@ -71,10 +71,18 @@ function game(){
             console.log("Computer wins round ",match+1,"!");
         }else if(roundWin == "draw"){
             console.log("No winner in round ",match+1,"!");
+        } else{
+            console.log("That's not a valid choice. Try again!");
+            continue;
         }
         match++;
     }
 
+    summaryGame(playerWin, computerWin);
+
+}
+
+function summaryGame(playerWin, computerWin){
     console.log("Total wins for player: ",playerWin);
     console.log("Total wins for computer: ",computerWin);
 
@@ -85,7 +93,6 @@ function game(){
     } else{
         console.log("You've drawn...No winner this time!");
     }
-
 }
 
 game();
