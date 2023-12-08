@@ -10,18 +10,33 @@ function playRound(playerSelection, computerSelection) {
     const MESSAGE_PAPER_ROCK = "Paper wraps and beats rock!";
     const MESSAGE_ROCK_SCISSORS = "Rock smashes scissors!";
     const MESSAGE_SCISSORS_PAPER = "Scissors cut paper!";
+    const art = document.createElement("article");
+    const h3 = document.createElement("h3");
+    const p = document.createElement("p");
+
+    h3.innerText= "Round " + match;
+    art.appendChild(h3);
     
     switch(player){
         case "ROCK":
             switch(computer){
                 case "ROCK":
                     console.log(MESSAGE_DRAW);
+                    p.innerText= MESSAGE_DRAW;
+                    art.appendChild(p);
+                    div.appendChild(art);
                     return "draw";
                 case "PAPER":
                     console.log(MESSAGE_PAPER_ROCK);
+                    p.innerText= MESSAGE_PAPER_ROCK;
+                    art.appendChild(p);
+                    div.appendChild(art);
                     return "computer";
                 case "SCISSORS":
                     console.log(MESSAGE_ROCK_SCISSORS);
+                    p.innerText= MESSAGE_ROCK_SCISSORS;
+                    art.appendChild(p);
+                    div.appendChild(art)
                     return "player";
             }
             break
@@ -29,12 +44,21 @@ function playRound(playerSelection, computerSelection) {
             switch(computer){
                 case "ROCK":
                     console.log(MESSAGE_PAPER_ROCK);
+                    p.innerText= MESSAGE_PAPER_ROCK;
+                    art.appendChild(p);
+                    div.appendChild(art);
                     return "player";
                 case "PAPER":
                     console.log(MESSAGE_DRAW);
+                    p.innerText= MESSAGE_DRAW;
+                    art.appendChild(p);
+                    div.appendChild(art);
                     return "draw";
                 case "SCISSORS":
                     console.log(MESSAGE_SCISSORS_PAPER);
+                    p.innerText = MESSAGE_SCISSORS_PAPER;
+                    art.appendChild(p);
+                    div.appendChild(art);
                     return "computer";
             }
             break
@@ -42,61 +66,140 @@ function playRound(playerSelection, computerSelection) {
             switch(computer){
                 case "ROCK":
                     console.log(MESSAGE_ROCK_SCISSORS);
+                    p.innerText = MESSAGE_ROCK_SCISSORS;
+                    art.appendChild(p);
+                    div.appendChild(art);
                     return "computer"
                 case "PAPER":
                     console.log(MESSAGE_SCISSORS_PAPER);
+                    p.innerText = MESSAGE_SCISSORS_PAPER;
+                    art.appendChild(p);
+                    div.appendChild(art);
                     return "player";
                 case "SCISSORS":
                     console.log(MESSAGE_DRAW);
+                    p.innerText= MESSAGE_DRAW;
+                    art.appendChild(p);
+                    div.appendChild(art);
                     return "draw";
             }
             break
     }
   }
 
-function game(){
-    let match = 0;
-    let playerWin = 0;
-    let computerWin = 0;
-    let roundWin;
-
-    while(match < 5){
-
-        const playerSelection = prompt("Please enter Rock / Scissors /Paper. Which one you would like to play: ");
+function game(playerSelection){
         const computerSelection = getComputerChoice();
+        const pPlay = document.createElement("p");
+        const p = document.createElement("p");
+        
         console.log("Player plays ",playerSelection,"; Computer plays ",computerSelection);
+        pPlay.innerText = "Player plays " +playerSelection +"; Computer plays " + computerSelection;
+        
         roundWin = playRound(playerSelection,computerSelection);
+        const art = div.lastChild;
+        art.appendChild(pPlay);
+        
 
         if( roundWin == "player"){
             playerWin++;
-            console.log("You win round ",match+1,"!");
+            console.log("You win round ",match,"!");
+            p.innerText = "You win round " + match +"!";
         }else if( roundWin == "computer"){
             computerWin++;
-            console.log("Computer wins round ",match+1,"!");
+            console.log("Computer wins round ",match,"!");
+            p.innerText = "Computer wins round " + match +"!";
         }else if(roundWin == "draw"){
-            console.log("No winner in round ",match+1,"!");
+            console.log("No winner in round ",match,"!");
+            p.innerText = "No winner in round " + match +"!";
         } else{
             console.log("That's not a valid choice. Try again!");
-            continue;
+            p.innerText = "That's not a valid choice. Try again!";
+            
         }
         match++;
-    }
-
-    summaryGame(playerWin, computerWin);
-
+        art.appendChild(p)
+        div.appendChild(art);
 }
 
 function summaryGame(playerWin, computerWin){
-    console.log("Total wins for player: ",playerWin);
-    console.log("Total wins for computer: ",computerWin);
 
-    if(playerWin > computerWin ){
-        console.log("You are the overall winner");
-    }else if(playerWin < computerWin ){
-        console.log("The computer is the overal winner");
-    } else{
-        console.log("You've drawn...No winner this time!");
+    const art = document.createElement("article");
+    const h3 = document.createElement("h3");
+    const p = document.createElement("p");
+    const pPlayer = document.createElement("p");
+    const pComputer = document.createElement("p");
+    
+    if(computerWin == 5 || playerWin == 5){
+        h3.innerText= "Final results";
+        art.appendChild(h3);
+    
+        console.log("Total wins for player: ",playerWin);
+        pPlayer.innerText = "Total wins for player: " + playerWin;
+        console.log("Total wins for computer: ",computerWin);
+        pComputer.innerText = "Total wins for computer: " + computerWin;
+        
+    
+        if(playerWin > computerWin ){
+            console.log("You are the overall winner");
+            p.innerText = "You are the overall winner";
+    
+        }else if(playerWin < computerWin ){
+            console.log("The computer is the overal winner");
+            p.innerText = "The computer is the overal winner";
+        } else{
+            console.log("You've drawn...No winner this time!");
+            p.innerText = "You've drawn...No winner this time!";
+        }
+        
+    
+        playerSelection.removeEventListener("click",selection);
+        btns = document.querySelectorAll('button');
+        btns.forEach(btn => {
+            btn.disabled = true;
+        });
+
+        restarBtn = document.createElement("button");
+        restarBtn.innerText = "Restart game";
+        playerSelection.appendChild(restarBtn);
+        restarBtn.focus({focusVisible: true });
+        restarBtn.addEventListener("click",refreshPage);
+        
+    }else{
+
+        h3.innerText= "Running Score";
+        art.appendChild(h3);
+
+        pPlayer.innerText = "Score for player: " + playerWin;
+        pComputer.innerText = "Score for computer: " + computerWin;
+
     }
+    art.appendChild(pPlayer);
+    art.appendChild(pComputer);
+    art.appendChild(p);
+    div.appendChild(art);
+
+   
 }
 
-game();
+function selection(event){
+    let player = event.target.dataset.option
+    if(player != undefined){
+        game(player);
+        summaryGame(playerWin, computerWin);
+    }
+    
+}
+
+function refreshPage(){
+    window.location.reload();
+} 
+
+//Variables
+let match = 1;
+let playerWin = 0;
+let computerWin = 0;
+let roundWin;
+const playerSelection = document.querySelector(".button-bar");
+const div = document.getElementById("result");
+//Listener
+playerSelection.addEventListener("click",selection);
